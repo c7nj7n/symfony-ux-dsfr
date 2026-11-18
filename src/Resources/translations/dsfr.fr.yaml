@@ -27,3 +27,5 @@ connect:
     name: ProConnect
     link: https://proconnect.gouv.fr/
     whatis: Qu’est-ce que ProConnect ?
+alert:
+  closable_label: Masquer le message
