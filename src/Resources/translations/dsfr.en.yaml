@@ -4,6 +4,9 @@ utils:
   menu: Menu
   select_language: Select a language
   new_window: New window
+breadcrumb:
+  label: 'you are here:'
+  button: See breadcrumb
 theme_switcher:
   title: Display settings
   button: Display settings
