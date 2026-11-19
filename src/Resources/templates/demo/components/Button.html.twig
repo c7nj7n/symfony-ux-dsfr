@@ -26,7 +26,7 @@
         </div>
     </div>
     <div class="fr-mt-4v">
-        <h3 class="fr-h4">Code snippel</h3>
+        <h3 class="fr-h4">Code snippet</h3>
         <div class="code-snippet">
             {% set code = "&lt;twig:UxDsfr:Button&gt;
     Bouton primaire
@@ -37,5 +37,60 @@
 &lt;/twig:UxDsfr:Button&gt;" %}
             <pre><code class="language-html">{{ code|raw }}</code></pre>
         </div>
+    </div>
+
+    <div class="fr-mt-4v">
+        <h2 class="fr-h2">Tailles</h2>
+        <div class="fr-mt-4v">
+            <twig:UxDsfr:Button size="sm">Petit bouton</twig:UxDsfr:Button>
+            <twig:UxDsfr:Button>Bouton moyen</twig:UxDsfr:Button>
+            <twig:UxDsfr:Button size="lg">Grand bouton</twig:UxDsfr:Button>
+        </div>
+        {% set code = "&lt;twig:UxDsfr:Button size=\"sm\"&gt;Petit bouton&lt;/twig:UxDsfr:Button&gt;" %}
+        <pre><code class="language-html">{{ code|raw }}</code></pre>
+    </div>
+    <div class="fr-mt-4v">
+        <h2 class="fr-h2">Icônes</h2>
+        <p><code>icon</code> prend le nom d’une icône DSFR sans son préfixe <code>fr-icon-</code>. <code>iconPosition</code> vaut <code>left</code> (défaut), <code>right</code> ou <code>only</code> : le libellé est alors masqué et repris en <code>title</code>.</p>
+        <div class="fr-mt-4v">
+            <twig:UxDsfr:Button icon="checkbox-circle-line">Icône à gauche</twig:UxDsfr:Button>
+            <twig:UxDsfr:Button icon="arrow-right-line" iconPosition="right" variant="secondary">Icône à droite</twig:UxDsfr:Button>
+            <twig:UxDsfr:Button icon="search-line" iconPosition="only">Rechercher</twig:UxDsfr:Button>
+        </div>
+        {% set code = "&lt;twig:UxDsfr:Button icon=\"checkbox-circle-line\"&gt;Icône à gauche&lt;/twig:UxDsfr:Button&gt;
+&lt;twig:UxDsfr:Button icon=\"arrow-right-line\" iconPosition=\"right\" variant=\"secondary\"&gt;Icône à droite&lt;/twig:UxDsfr:Button&gt;
+&lt;twig:UxDsfr:Button icon=\"search-line\" iconPosition=\"only\"&gt;Rechercher&lt;/twig:UxDsfr:Button&gt;" %}
+        <pre><code class="language-html">{{ code|raw }}</code></pre>
+    </div>
+    <div class="fr-mt-4v">
+        <h2 class="fr-h2">Désactivé</h2>
+        <p>Un lien désactivé perd son <code>href</code> et reçoit <code>role="link"</code> et <code>aria-disabled="true"</code>.</p>
+        <div class="fr-mt-4v">
+            <twig:UxDsfr:Button disabled>Bouton désactivé</twig:UxDsfr:Button>
+            <twig:UxDsfr:Button href="#link" disabled>Lien désactivé</twig:UxDsfr:Button>
+        </div>
+        {% set code = "&lt;twig:UxDsfr:Button disabled&gt;Bouton désactivé&lt;/twig:UxDsfr:Button&gt;" %}
+        <pre><code class="language-html">{{ code|raw }}</code></pre>
+    </div>
+    <div class="fr-mt-4v">
+        <h2 class="fr-h2">Attributs</h2>
+        <p>Les autres attributs sont transmis à la balise, par exemple pour ouvrir une modale :</p>
+        {% set code = "&lt;twig:UxDsfr:Button aria-controls=\"modal-1\" data-fr-opened=\"false\"&gt;Ouvrir la modale&lt;/twig:UxDsfr:Button&gt;" %}
+        <pre><code class="language-html">{{ code|raw }}</code></pre>
+    </div>
+    <div class="fr-mt-4v">
+        <h2 class="fr-h2">Groupe de boutons</h2>
+        <p><code>Button:Group</code> reprend les options du groupe : <code>size</code>, <code>iconPosition</code> (left, right), <code>inline</code> (always, sm, md, lg), <code>align</code> (left, right, center), <code>reverse</code> et <code>equisized</code>. Chaque bouton est placé dans un <code>&lt;li&gt;</code> ; <code>:iconPosition="null"</code> laisse le groupe positionner son icône.</p>
+        <div class="fr-mt-4v">
+            <twig:UxDsfr:Button:Group iconPosition="left" inline="md" align="right" reverse>
+                <li><twig:UxDsfr:Button icon="checkbox-circle-line" :iconPosition="null">Valider</twig:UxDsfr:Button></li>
+                <li><twig:UxDsfr:Button variant="secondary">Annuler</twig:UxDsfr:Button></li>
+            </twig:UxDsfr:Button:Group>
+        </div>
+        {% set code = "&lt;twig:UxDsfr:Button:Group iconPosition=\"left\" inline=\"md\" align=\"right\" reverse&gt;
+    &lt;li&gt;&lt;twig:UxDsfr:Button icon=\"checkbox-circle-line\" :iconPosition=\"null\"&gt;Valider&lt;/twig:UxDsfr:Button&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;twig:UxDsfr:Button variant=\"secondary\"&gt;Annuler&lt;/twig:UxDsfr:Button&gt;&lt;/li&gt;
+&lt;/twig:UxDsfr:Button:Group&gt;" %}
+        <pre><code class="language-html">{{ code|raw }}</code></pre>
     </div>
 {% endblock %}

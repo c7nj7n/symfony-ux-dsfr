@@ -1,10 +1,19 @@
 {% set content %}{% block content %}{% endblock %}{% endset %}
+{% set classes = [
+    'fr-btn',
+    variant != 'primary' ? 'fr-btn--' ~ variant,
+    size != 'md' ? 'fr-btn--' ~ size,
+    icon ? 'fr-icon-' ~ icon,
+    icon and iconPosition in ['left', 'right'] ? 'fr-btn--icon-' ~ iconPosition,
+]|filter(c => c)|join(' ') %}
+{% set defaults = {'class': classes}|merge(icon and iconPosition == 'only' ? {'title': content|striptags|trim} : {}) %}
 {% if href %}
-<a href="{{ href }}" class="fr-btn fr-btn--{{ variant }}{% if disabled %} fr-btn--disabled{% endif %}"{% if disabled %} aria-disabled="true"{% endif %}>
+{# A disabled link has no href (DSFR link component) #}
+<a {{ attributes.defaults(defaults|merge(disabled ? {'role': 'link', 'aria-disabled': 'true'} : {'href': href})) }}>
     {{ content }}
 </a>
 {% else %}
-<button type="{{ type }}" class="fr-btn fr-btn--{{ variant }}"{% if disabled %} disabled aria-disabled="true"{% endif %}>
+<button {{ attributes.defaults(defaults|merge({'type': type})) }}{% if disabled %} disabled{% endif %}>
     {{ content }}
 </button>
 {% endif %}

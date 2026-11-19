@@ -1,0 +1,12 @@
+{# Each button goes in a <li> #}
+<ul {{ attributes.defaults({'class': [
+    'fr-btns-group',
+    size != 'md' ? 'fr-btns-group--' ~ size,
+    iconPosition ? 'fr-btns-group--icon-' ~ iconPosition,
+    inline ? 'fr-btns-group--inline' ~ (inline == 'always' ? '' : '-' ~ inline),
+    align != 'left' ? 'fr-btns-group--' ~ align,
+    reverse ? 'fr-btns-group--inline-reverse',
+    equisized ? 'fr-btns-group--equisized',
+]|filter(c => c)|join(' ')}) }}>
+    {% block content %}{% endblock %}
+</ul>
