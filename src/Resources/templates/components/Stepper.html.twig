@@ -1,0 +1,12 @@
+<div {{ attributes.defaults({'class': 'fr-stepper'}) }}>
+    <{{ titleTag }} class="fr-stepper__title">
+        {{ steps[current - 1] }}
+        <span class="fr-stepper__state">{{ 'stepper.state'|trans({'%current%': current, '%count%': steps|length}, 'dsfr') }}</span>
+    </{{ titleTag }}>
+    <div class="fr-stepper__steps" data-fr-current-step="{{ current }}" data-fr-steps="{{ steps|length }}"></div>
+    {% if this.nextStep is not null %}
+        <p class="fr-stepper__details">
+            <span class="fr-text--bold">{{ 'stepper.next'|trans({}, 'dsfr') }}</span> {{ this.nextStep }}
+        </p>
+    {% endif %}
+</div>

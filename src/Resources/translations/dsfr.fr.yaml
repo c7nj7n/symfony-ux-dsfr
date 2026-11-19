@@ -29,3 +29,6 @@ connect:
     whatis: Qu’est-ce que ProConnect ?
 alert:
   closable_label: Masquer le message
+stepper:
+  state: Étape %current% sur %count%
+  next: 'Étape suivante :'

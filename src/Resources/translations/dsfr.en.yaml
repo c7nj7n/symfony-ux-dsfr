@@ -29,3 +29,6 @@ connect:
     whatis: What is ProConnect?
 alert:
   closable_label: Hide the message
+stepper:
+  state: Step %current% of %count%
+  next: 'Next step:'

@@ -1,0 +1,34 @@
+{% extends "@UxDsfr/demo/components.html.twig" %}
+
+{% block text_content %}
+    <h1 class="fr-h1">Stepper</h1>
+    <div class="fr-mt-4v">
+        <twig:UxDsfr:Callout color="blue-ecume">
+            <p class="fr-mb-0">Le composant <code>Stepper</code> (indicateur d’étapes) montre l’avancement dans un processus : titre de l’étape en cours, « Étape n sur N », barre de progression et étape suivante.</p>
+        </twig:UxDsfr:Callout>
+    </div>
+
+    <div class="fr-mt-4v">
+        <h2 class="fr-h2">Rendu</h2>
+        <p><code>steps</code> liste les titres des étapes dans l’ordre, <code>current</code> est le numéro de l’étape en cours (à partir de 1). La dernière étape n’affiche pas d’étape suivante.</p>
+        <div class="fr-mt-4v">
+            <twig:UxDsfr:Stepper :steps="['Identité', 'Coordonnées', 'Justificatifs']" :current="2" />
+        </div>
+        {% set code = "&lt;twig:UxDsfr:Stepper :steps=\"['Identité', 'Coordonnées', 'Justificatifs']\" :current=\"2\" /&gt;" %}
+        <twig:UxDsfr:Highlight>
+            <pre><code class="language-html">{{ code|raw }}</code></pre>
+        </twig:UxDsfr:Highlight>
+    </div>
+
+    <div class="fr-mt-4v">
+        <h2 class="fr-h2">Niveau de titre</h2>
+        <p>Le titre est un <code>h2</code> par défaut ; <code>titleTag</code> l’adapte à la hiérarchie de la page (<code>h2</code> à <code>h6</code>).</p>
+        <div class="fr-mt-4v">
+            <twig:UxDsfr:Stepper :steps="['Identité', 'Coordonnées', 'Justificatifs']" :current="3" titleTag="h3" />
+        </div>
+        {% set code = "&lt;twig:UxDsfr:Stepper :steps=\"['Identité', 'Coordonnées', 'Justificatifs']\" :current=\"3\" titleTag=\"h3\" /&gt;" %}
+        <twig:UxDsfr:Highlight>
+            <pre><code class="language-html">{{ code|raw }}</code></pre>
+        </twig:UxDsfr:Highlight>
+    </div>
+{% endblock %}
