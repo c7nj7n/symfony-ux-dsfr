@@ -38,6 +38,11 @@
             <p>Vous pouvez fournir `attributes` pour changer l'`aria-label` ou ajouter des classes :</p>
             {% set code_attr = "&lt;twig:UxDsfr:Breadcrumb items=items attributes={ 'aria-label': 'Vous êtes ici', 'class': 'my-breadcrumb' } /&gt;" %}
             <pre><code class="language-html">{{ code_attr|raw }}</code></pre>
+
+            <h4 class="fr-h5">Identifiant du fil d’Ariane</h4>
+            <p>En mobile, seul le bouton « Voir le fil d’Ariane » est affiché : il déplie la liste, dont l’`id` vaut `breadcrumb` par défaut. Changez-le avec `id` si la page en contient déjà un :</p>
+            {% set code_id = "&lt;twig:UxDsfr:Breadcrumb :items=\"items\" id=\"breadcrumb-documentation\" /&gt;" %}
+            <pre><code class="language-html">{{ code_id|raw }}</code></pre>
         </div>
     </div>
 {% endblock %}

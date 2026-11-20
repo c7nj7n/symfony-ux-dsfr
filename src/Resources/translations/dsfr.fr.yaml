@@ -4,6 +4,9 @@ utils:
   menu: Menu
   select_language: Sélectionner une langue
   new_window: Nouvelle fenêtre
+breadcrumb:
+  label: 'vous êtes ici :'
+  button: Voir le fil d’Ariane
 theme_switcher:
   title: Paramètres d’affichage
   button: Paramètres d'affichage
