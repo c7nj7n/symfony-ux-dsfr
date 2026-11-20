@@ -104,6 +104,12 @@ class ComponentsDemoController extends AbstractController
         return $this->render('@UxDsfr/demo/components/Quote.html.twig');
     }
 
+    #[Route('/Stepper', '_Stepper')]
+    public function Stepper()
+    {
+        return $this->render('@UxDsfr/demo/components/Stepper.html.twig');
+    }
+
     #[Route('/Summary', '_Summary')]
     public function Summary()
     {
