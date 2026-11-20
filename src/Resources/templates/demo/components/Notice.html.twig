@@ -1,0 +1,51 @@
+{% extends "@UxDsfr/demo/components.html.twig" %}
+
+{% block text_content %}
+    <h1 class="fr-h1">Notice</h1>
+    <div class="fr-mt-4v">
+        <twig:UxDsfr:Callout color="blue-ecume">
+            <p class="fr-mb-0">Le composant <code>Notice</code> (bandeau d’information importante) signale une information importante et temporaire. Le DSFR le place directement sous la navigation principale, sur toutes les pages.</p>
+        </twig:UxDsfr:Callout>
+    </div>
+
+    <div class="fr-mt-4v">
+        <h2 class="fr-h2">Rendu</h2>
+        <p>Seul <code>title</code> est obligatoire. <code>description</code>, <code>link</code> (avec <code>linkLabel</code> et <code>newWindow</code>) et <code>closable</code> sont optionnels.</p>
+        <div class="fr-mt-4v">
+            <twig:UxDsfr:Notice title="Titre du bandeau" description="Texte de description" link="https://www.systeme-de-design.gouv.fr/" linkLabel="Lien de consultation" newWindow closable />
+        </div>
+        {% set code = "&lt;twig:UxDsfr:Notice title=\"Titre du bandeau\" description=\"Texte de description\"
+    link=\"https://www.systeme-de-design.gouv.fr/\" linkLabel=\"Lien de consultation\" newWindow closable /&gt;" %}
+        <twig:UxDsfr:Highlight>
+            <pre><code class="language-html">{{ code|raw }}</code></pre>
+        </twig:UxDsfr:Highlight>
+    </div>
+
+    <div class="fr-mt-4v">
+        <h2 class="fr-h2">Types</h2>
+        <p><code>type</code> : <code>info</code> (défaut), <code>warning</code>, <code>alert</code>, les vigilances météo <code>weather-orange</code>, <code>weather-red</code>, <code>weather-purple</code>, et les alertes <code>kidnapping</code>, <code>cyberattack</code>, <code>attack</code>, <code>witness</code>.</p>
+        <div class="fr-mt-4v">
+            <twig:UxDsfr:Notice type="warning" title="Bandeau d’avertissement" />
+            <twig:UxDsfr:Notice type="alert" title="Bandeau d’alerte" class="fr-mt-2v" />
+            <twig:UxDsfr:Notice type="weather-orange" title="Vigilance orange : orages" class="fr-mt-2v" />
+        </div>
+        {% set code = "&lt;twig:UxDsfr:Notice type=\"warning\" title=\"Bandeau d’avertissement\" /&gt;" %}
+        <twig:UxDsfr:Highlight>
+            <pre><code class="language-html">{{ code|raw }}</code></pre>
+        </twig:UxDsfr:Highlight>
+    </div>
+
+    <div class="fr-mt-4v">
+        <h2 class="fr-h2">Icône</h2>
+        <p><code>icon</code> remplace l’icône du type par une icône DSFR (son nom sans le préfixe <code>fr-icon-</code>) ; <code>:icon="false"</code> la retire.</p>
+        <div class="fr-mt-4v">
+            <twig:UxDsfr:Notice title="Icône personnalisée" icon="virus-fill" />
+            <twig:UxDsfr:Notice title="Sans icône" :icon="false" class="fr-mt-2v" />
+        </div>
+        {% set code = "&lt;twig:UxDsfr:Notice title=\"Icône personnalisée\" icon=\"virus-fill\" /&gt;
+&lt;twig:UxDsfr:Notice title=\"Sans icône\" :icon=\"false\" /&gt;" %}
+        <twig:UxDsfr:Highlight>
+            <pre><code class="language-html">{{ code|raw }}</code></pre>
+        </twig:UxDsfr:Highlight>
+    </div>
+{% endblock %}

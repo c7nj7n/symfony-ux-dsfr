@@ -20,6 +20,12 @@ class ComponentsDemoController extends AbstractController
         return $this->render('@UxDsfr/demo/components/Accordion.html.twig');
     }
 
+    #[Route('/Notice', '_Notice')]
+    public function Notice()
+    {
+        return $this->render('@UxDsfr/demo/components/Notice.html.twig');
+    }
+
     #[Route('/Badge', '_Badge')]
     public function Badge()
     {
