@@ -1,5 +1,6 @@
-<p {{ attributes.defaults({'class': 'fr-badge fr-badge--' ~ type ~ ' fr-badge--' ~ size}) }}>
-    {% if ellipsis %}<span class="fr-ellipsis">{% endif %}
-    {{ content }}
-    {% if ellipsis %}</span>{% endif %}
-</p>
+{% set variant = color ? 'fr-badge--' ~ color : (type ? 'fr-badge--' ~ type ~ (icon ? '' : ' fr-badge--no-icon')) %}
+<{{ tag }} {{ attributes.defaults({'class': ['fr-badge', variant, size == 'sm' ? 'fr-badge--sm']|filter(c => c)|join(' ')}) }}>
+    {%- if ellipsis %}<span class="fr-ellipsis">{% endif -%}
+    {% block content %}{{ content }}{% endblock %}
+    {%- if ellipsis %}</span>{% endif -%}
+</{{ tag }}>

@@ -17,6 +17,8 @@
                 <twig:UxDsfr:Badge type="warning" content="Warning"/>
                 <twig:UxDsfr:Badge type="error" content="Error"/>
                 <twig:UxDsfr:Badge type="success" content="Success"/>
+                <twig:UxDsfr:Badge type="new" content="New"/>
+                <twig:UxDsfr:Badge :type="null" content="Neutre"/>
             </div>
         </div>
         <div class="fr-mt-4v">
@@ -24,7 +26,9 @@
             {% set code3 = "&lt;twig:UxDsfr:Badge type=\"info\" content=\"Info\" /&gt;
 &lt;twig:UxDsfr:Badge type=\"warning\" content=\"Warning\" /&gt;
 &lt;twig:UxDsfr:Badge type=\"error\" content=\"Error\" /&gt;
-&lt;twig:UxDsfr:Badge type=\"success\" content=\"Success\" /&gt;" %}
+&lt;twig:UxDsfr:Badge type=\"success\" content=\"Success\" /&gt;
+&lt;twig:UxDsfr:Badge type=\"new\" content=\"New\" /&gt;
+&lt;twig:UxDsfr:Badge :type=\"null\" content=\"Neutre\" /&gt;" %}
             <twig:UxDsfr:Highlight>
                 <pre><code class="language-html">{{ code3|raw }}</code></pre>
             </twig:UxDsfr:Highlight>
@@ -42,6 +46,52 @@
 &lt;twig:UxDsfr:Badge size=\"md\" content=\"Medium\" /&gt;" %}
             <twig:UxDsfr:Highlight>
                 <pre><code class="language-html">{{ code4|raw }}</code></pre>
+            </twig:UxDsfr:Highlight>
+        </div>
+        <h2 class="fr-h2">Sans icône</h2>
+        <div class="fr-mt-4v">
+            <div class="fr-mt-2v">
+                <twig:UxDsfr:Badge type="success" :icon="false" content="Succès"/>
+            </div>
+        </div>
+        <div class="fr-mt-4v">
+            <p><strong>Code snippet</strong></p>
+            {% set code5 = "&lt;twig:UxDsfr:Badge type=\"success\" :icon=\"false\" content=\"Succès\" /&gt;" %}
+            <twig:UxDsfr:Highlight>
+                <pre><code class="language-html">{{ code5|raw }}</code></pre>
+            </twig:UxDsfr:Highlight>
+        </div>
+        <h2 class="fr-h2">Couleurs d’accentuation</h2>
+        <p><code>color</code> remplace le type système.</p>
+        <div class="fr-mt-4v">
+            <div class="fr-mt-2v">
+                <twig:UxDsfr:Badge color="green-menthe" content="Green menthe"/>
+                <twig:UxDsfr:Badge color="purple-glycine" content="Purple glycine"/>
+            </div>
+        </div>
+        <div class="fr-mt-4v">
+            <p><strong>Code snippet</strong></p>
+            {% set code6 = "&lt;twig:UxDsfr:Badge color=\"green-menthe\" content=\"Green menthe\" /&gt;" %}
+            <twig:UxDsfr:Highlight>
+                <pre><code class="language-html">{{ code6|raw }}</code></pre>
+            </twig:UxDsfr:Highlight>
+        </div>
+        <h2 class="fr-h2">Balise</h2>
+        <p>Le badge est un <code>&lt;p&gt;</code> ; <code>tag="span"</code> le place dans un lien, une cellule de tableau ou un groupe de badges.</p>
+        <div class="fr-mt-4v">
+            <ul class="fr-badges-group">
+                <li><twig:UxDsfr:Badge tag="span" type="info" content="Badge 1"/></li>
+                <li><twig:UxDsfr:Badge tag="span" type="success" content="Badge 2"/></li>
+            </ul>
+        </div>
+        <div class="fr-mt-4v">
+            <p><strong>Code snippet</strong></p>
+            {% set code7 = "&lt;ul class=\"fr-badges-group\"&gt;
+    &lt;li&gt;&lt;twig:UxDsfr:Badge tag=\"span\" type=\"info\" content=\"Badge 1\" /&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;twig:UxDsfr:Badge tag=\"span\" type=\"success\" content=\"Badge 2\" /&gt;&lt;/li&gt;
+&lt;/ul&gt;" %}
+            <twig:UxDsfr:Highlight>
+                <pre><code class="language-html">{{ code7|raw }}</code></pre>
             </twig:UxDsfr:Highlight>
         </div>
     </div>
