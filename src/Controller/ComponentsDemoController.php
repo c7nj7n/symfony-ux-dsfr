@@ -104,6 +104,12 @@ class ComponentsDemoController extends AbstractController
         return $this->render('@UxDsfr/demo/components/Quote.html.twig');
     }
 
+    #[Route('/Pagination', '_Pagination')]
+    public function Pagination()
+    {
+        return $this->render('@UxDsfr/demo/components/Pagination.html.twig');
+    }
+
     #[Route('/Stepper', '_Stepper')]
     public function Stepper()
     {
