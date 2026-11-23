@@ -140,6 +140,12 @@ class ComponentsDemoController extends AbstractController
         return $this->render('@UxDsfr/demo/components/LayoutBody.html.twig');
     }
 
+    #[Route('/LayoutSideMenu', '_LayoutSideMenu')]
+    public function LayoutSideMenu()
+    {
+        return $this->render('@UxDsfr/demo/components/LayoutSideMenu.html.twig');
+    }
+
     #[Route('/Tag', '_Tag')]
     public function Tag()
     {

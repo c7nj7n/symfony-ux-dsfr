@@ -35,3 +35,5 @@ alert:
 stepper:
   state: Étape %current% sur %count%
   next: 'Étape suivante :'
+sidemenu:
+  button: Dans cette rubrique

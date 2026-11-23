@@ -1,11 +1,20 @@
 <li {{ attributes.defaults({
-    'class': 'fr-sidemenu__item',
+    'class': 'fr-sidemenu__item' ~ (active ? ' fr-sidemenu__item--active'),
 }) }}>
-    {% if block('link') is defined %}
+    {% if href is not null %}
+        <a class="fr-sidemenu__link" href="{{ href }}"{% if current %} aria-current="page"{% endif %}>{% block content %}{% endblock %}</a>
+    {% elseif title is not null %}
+        <button aria-controls="{{ id }}" aria-expanded="{{ expanded ? 'true' : 'false' }}"{% if active %} aria-current="true"{% endif %} class="fr-sidemenu__btn" type="button">{{ title }}</button>
+        <div class="fr-collapse" id="{{ id }}">
+            <ul class="fr-sidemenu__list">
+                {{- block('content') -}}
+            </ul>
+        </div>
+    {% elseif block('link') is defined %}
         {{ block('link') }}
     {% elseif block('submenu') is defined %}
         {{ block('submenu') }}
     {% else %}
-        {%- block content -%}{%- endblock -%}
+        {{- block('content') -}}
     {% endif %}
 </li>
