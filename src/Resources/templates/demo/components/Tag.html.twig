@@ -32,6 +32,17 @@
     </div>
 
     <div class="fr-mt-4v">
+        <h3 class="fr-h4">Groupe, icône, tag désactivé</h3>
+        <p>Un groupe de tags est une liste <code>Tag:Group</code>, un tag par <code>&lt;li&gt;</code> ; <code>size="sm"</code> sur le groupe réduit tous ses tags.</p>
+        <twig:UxDsfr:Tag:Group size="sm">
+            <li><twig:UxDsfr:Tag>Hérault</twig:UxDsfr:Tag></li>
+            <li><twig:UxDsfr:Tag icon="map-pin-2-line">Gard</twig:UxDsfr:Tag></li>
+            <li><twig:UxDsfr:Tag :disabled="true" href="#">Lozère</twig:UxDsfr:Tag></li>
+        </twig:UxDsfr:Tag:Group>
+        <p class="fr-mt-2v">Un tag statique est un <code>&lt;p&gt;</code> comme dans l’exemple officiel ; <code>tag="span"</code> le place dans une phrase. Un tag supprimable est nommé « Retirer &lt;libellé&gt; » par défaut, <code>title</code> le remplace.</p>
+    </div>
+
+    <div class="fr-mt-4v">
         <h3 class="fr-h4">Exemples d'utilisation</h3>
         <div class="fr-mt-4v">
             <h4 class="fr-h5">Intégration dans une liste</h4>
@@ -77,7 +88,7 @@
             </twig:UxDsfr:Highlight>
 
             <h4 class="fr-h5">Propriétés disponibles</h4>
-            {% set code5 = "variant: 'default' | 'green-emeraude' | 'green-menthe' | 'blue-cumulus' | 'purple-glycine' | 'pink-macaron' | 'yellow-tournesol' | 'orange-terre-battue' | 'brown-cafe-creme' | 'grey'\nsize: 'sm' | 'md'\npressable: true | false\npressed: true | false\nhref: URL facultative\ntitle: texte d’aide facultatif" %}
+            {% set code5 = "variant: 'default' | 'green-emeraude' | 'green-menthe' | 'blue-cumulus' | 'purple-glycine' | 'pink-macaron' | 'yellow-tournesol' | 'orange-terre-battue' | 'brown-cafe-creme' | 'grey'\nsize: 'sm' | 'md'\npressable: true | false\npressed: true | false\nhref: URL facultative\ntitle: texte d’aide facultatif (nom du bouton d’un tag supprimable, « Retirer <libellé> » par défaut)\ntag: 'p' | 'span' (tag statique)\nicon: nom d’icône DSFR sans fr-icon-, à gauche\ndisabled: true | false\n\nTag:Group\nsize: 'sm' | 'md'" %}
             <pre><code class="language-text">{{ code5|raw }}</code></pre>
             <twig:UxDsfr:Highlight>
             <pre><code class="language-text">{{ code4|raw }}</code></pre>

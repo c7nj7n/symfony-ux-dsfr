@@ -35,3 +35,5 @@ alert:
 stepper:
   state: Step %current% of %count%
   next: 'Next step:'
+tag:
+  dismiss: 'Remove %label%'
