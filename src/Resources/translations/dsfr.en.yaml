@@ -35,3 +35,8 @@ alert:
 stepper:
   state: Step %current% of %count%
   next: 'Next step:'
+header:
+  home: Home
+  navigation: Main menu
+skiplinks:
+  label: Quick access

@@ -1,168 +1,103 @@
 {% extends "@UxDsfr/demo/components.html.twig" %}
 
+{# ‹ stands for < in the snippets: the component lexer would otherwise render <twig: tags #}
+{% macro snippet(code) %}
+    <div class="fr-mt-4v code-snippet">
+        <p><strong>Code snippet</strong></p>
+        <twig:UxDsfr:Highlight><pre><code class="language-html">{{ code|replace({'‹': '<'}) }}</code></pre></twig:UxDsfr:Highlight>
+    </div>
+{% endmacro %}
+
 {% block text_content %}
+    {% from _self import snippet %}
     <h1 class="fr-h1">Header</h1>
     <div class="fr-mt-4v">
         <twig:UxDsfr:Callout color="blue-ecume">
-            <p class="fr-mb-0">Le composant <code>Header</code> rend l’en-tête DSFR complet : marque, navigation, outils et éventuels éléments de service.</p>
+            <p class="fr-mb-0">Le composant <code>Header</code> rend l’en-tête DSFR : bloc-marque, nom et lien du service, outils, recherche et navigation. Le lien du service porte le titre « Accueil - nom du service - intitulé officiel » demandé par le DSFR. Le bouton « Menu » apparaît dès qu’il y a une navigation ou des outils, qui sont repris dans le menu mobile.</p>
         </twig:UxDsfr:Callout>
     </div>
 
-<div class="fr-mt-4v">
-        <h2 class="fr-h3">Rendu de base</h2>
-        <div class="fr-mt-4v">
-            <twig:UxDsfr:Header
-                    header_service_title="Mon service"
-                    header_service_tag="Ma tagline"
-            >
-            </twig:UxDsfr:Header>
-        </div>
-    </div>
-    <div class="fr-mt-4v">
-        <p><strong>Code snippet</strong></p>
-        <div class="code-snippet">
-            {% set code = "&lt;twig:UxDsfr:Header
-        header_service_title=\"Mon service\"
-        header_service_tag=\"Ma tagline\"
-    &gt;
-&lt;/twig:UxDsfr:Header&gt;" %}
-            <twig:UxDsfr:Highlight><pre><code class="language-html">{{ code|raw }}</code></pre></twig:UxDsfr:Highlight>
-        </div>
-    </div>
-    <h2 class="fr-h3 fr-mt-8v">Ajouter un lien</h2>
-    <div class="fr-mt-4v">
-        <twig:UxDsfr:Header
-                header_service_title="Mon service"
-                header_service_tag="Ma tagline"
-                service_link="#mon-lien"
-        >
-        </twig:UxDsfr:Header>
-    </div>
-    <div class="fr-mt-4v">
-        <p><strong>Code snippet</strong></p>
-        <div class="code-snippet">
-            {% set code = "&lt;twig:UxDsfr:Header
-        header_service_title=\"Mon service\"
-        header_service_tag=\"Ma tagline\"
-        service_link=\"#mon-lien\"
-    &gt;
-&lt;/twig:UxDsfr:Header&gt;" %}
-            <twig:UxDsfr:Highlight>
-            <pre><code class="language-html">{{ code|raw }}</code></pre>
-            </twig:UxDsfr:Highlight>
-        </div>
-    </div>
-    <h2 class="fr-h3 fr-mt-8v">Ajouter un logo de service</h2>
-    <div class="fr-mt-4v">
-        <twig:UxDsfr:Header
-                header_service_title="Mon service"
-                header_service_tag="Ma tagline"
-                service_logo="{{ asset('bundles/symfonyuxdsfr/images/placeholder.3x4.png') }}"
-        >
-        </twig:UxDsfr:Header>
-    </div>
-    <div class="fr-mt-4v">
-        <p><strong>Code snippet</strong></p>
-        <div class="code-snippet">
-            {% set code = "&lt;twig:UxDsfr:Header
-        header_service_title=\"Mon service\"
-        header_service_tag=\"Ma tagline\"
-        service_logo=\"lien/vers/mon/image.png\"
-    &gt;
-&lt;/twig:UxDsfr:Header&gt;" %}
-            <twig:UxDsfr:Highlight>
-            <pre><code class="language-html">{{ code|raw }}</code></pre>
-            </twig:UxDsfr:Highlight>
-        </div>
-    </div>
-    <h2 class="fr-h3 fr-mt-8v">Ajouter une navigation</h2>
-    <div class="fr-mt-4v">
-        {% set sub_menu %}
-            <twig:UxDsfr:Nav:Item href="#lien1">Lien 1</twig:UxDsfr:Nav:Item>
-            <twig:UxDsfr:Nav:Item href="#lien2">Lien 2</twig:UxDsfr:Nav:Item>
-            <twig:UxDsfr:Nav:Item href="#lien3">Lien 3</twig:UxDsfr:Nav:Item>
-        {% endset %}
-        {% set navigation %}
-            <twig:UxDsfr:Nav:Item href="#lien1">Lien 1</twig:UxDsfr:Nav:Item>
-            <twig:UxDsfr:Nav:Item href="#lien2">Lien 2</twig:UxDsfr:Nav:Item>
-            <twig:UxDsfr:Nav:Item href="#lien3">
-                Lien 3
-                {% block sub_menu %}
-                    {{ sub_menu }}
-                {% endblock %}
+    <h2 class="fr-h3 fr-mt-8v">Rendu de base</h2>
+    <twig:UxDsfr:Header service_title="Mon service" service_tagline="Ma tagline" service_link="#accueil" menu_id="header-menu-base" />
+    {{ snippet('‹twig:UxDsfr:Header service_title="Mon service" service_tagline="Ma tagline" service_link="/" />') }}
+
+    <h2 class="fr-h3 fr-mt-8v">Intitulé officiel, logo opérateur et badge</h2>
+    <twig:UxDsfr:Header service_title="Mon service" service_tagline="Ma tagline" logo_title="Ministère<br>de l’exemple"
+        service_logo="{{ asset('bundles/symfonyuxdsfr/images/placeholder.3x4.png') }}" service_logo_alt="Nom de l’opérateur" menu_id="header-menu-logo">
+        <twig:block name="service_badges"><twig:UxDsfr:Badge color="green-emeraude" size="sm" tag="span">Bêta</twig:UxDsfr:Badge></twig:block>
+    </twig:UxDsfr:Header>
+    {{ snippet('‹twig:UxDsfr:Header service_title="Mon service" logo_title="Ministère<br>de l’exemple"
+        service_logo="lien/vers/mon/image.png" service_logo_alt="Nom de l’opérateur">
+    ‹twig:block name="service_badges">
+        ‹twig:UxDsfr:Badge color="green-emeraude" size="sm" tag="span">Bêta‹/twig:UxDsfr:Badge>
+    ‹/twig:block>
+‹/twig:UxDsfr:Header>') }}
+
+    <h2 class="fr-h3 fr-mt-8v">Outils et menus d’outils</h2>
+    <twig:UxDsfr:Header service_title="Mon service" menu_id="header-menu-tools">
+        <twig:block name="header_tools">
+            <ul class="fr-btns-group">
+                <li><a class="fr-btn fr-icon-question-line" href="#aide">Aide</a></li>
+            </ul>
+            <twig:UxDsfr:Header:ToolsMenu label="Mon compte" icon="account-circle-line" :items="[
+                {label: 'Mon profil', href: '#profil', current: true},
+                {label: 'Se déconnecter', href: '#deconnexion'},
+            ]" />
+        </twig:block>
+    </twig:UxDsfr:Header>
+    {{ snippet('‹twig:UxDsfr:Header service_title="Mon service">
+    ‹twig:block name="header_tools">
+        <ul class="fr-btns-group">
+            <li><a class="fr-btn fr-icon-question-line" href="/aide">Aide</a></li>
+        </ul>
+        ‹twig:UxDsfr:Header:ToolsMenu label="Mon compte" icon="account-circle-line" :items="[
+            {label: \'Mon profil\', href: \'/profil\', current: true},
+            {label: \'Se déconnecter\', href: \'/deconnexion\'},
+        ]" />
+    ‹/twig:block>
+‹/twig:UxDsfr:Header>') }}
+
+    <h2 class="fr-h3 fr-mt-8v">Navigation, recherche et liens d’évitement</h2>
+    <twig:UxDsfr:Header service_title="Mon service" :show_search_button="true" menu_id="header-menu-nav" search_modal_id="search-modal-nav" navigation_id="navigation-demo"
+        :skiplinks="[{label: 'Contenu', href: '#contenu'}, {label: 'Menu', href: '#navigation-demo'}]">
+        <twig:block name="header_navigation">
+            <twig:UxDsfr:Nav:Item href="#lien1" :current="true">Lien 1</twig:UxDsfr:Nav:Item>
+            <twig:UxDsfr:Nav:Item>
+                Rubrique
+                <twig:block name="sub_menu">
+                    <twig:UxDsfr:Nav:Item href="#lien2">Lien 2</twig:UxDsfr:Nav:Item>
+                    <twig:UxDsfr:Nav:Item href="#lien3">Lien 3</twig:UxDsfr:Nav:Item>
+                </twig:block>
             </twig:UxDsfr:Nav:Item>
-        {% endset %}
-        <twig:UxDsfr:Header
-                header_service_title="Mon service"
-                header_service_tag="Ma tagline"
-                show_menu_button="true"
-        >
-            {% block header_navigation %}
-                {{ navigation }}
-            {% endblock %}
-        </twig:UxDsfr:Header>
-    </div>
-    <div class="fr-mt-4v">
-        <p><strong>Code snippet</strong></p>
-        <div class="code-snippet">
-            {% set code = "&lt;twig:UxDsfr:Header
-        header_service_title=\"Mon service\"
-        header_service_tag=\"Ma tagline\"
-        show_menu_button=\"true\"
-    &gt;
-        {% block header_navigation %}
-            {{ navigation }}
-        {% endblock %}
-&lt;/twig:UxDsfr:Header&gt;" %}
-            <twig:UxDsfr:Highlight>
-                <pre><code class="language-html">{{ code|raw }}</code></pre>
-            </twig:UxDsfr:Highlight>
-        </div>
-    </div>
-    <h2 class="fr-h3 fr-mt-8v">Ajouter une barre de recherche</h2>
-    <div class="fr-mt-4v">
-        {% set sub_menu %}
-            <twig:UxDsfr:Nav:Item href="#lien1">Lien 1</twig:UxDsfr:Nav:Item>
-            <twig:UxDsfr:Nav:Item href="#lien2">Lien 2</twig:UxDsfr:Nav:Item>
-            <twig:UxDsfr:Nav:Item href="#lien3">Lien 3</twig:UxDsfr:Nav:Item>
-        {% endset %}
-        {% set navigation %}
-            <twig:UxDsfr:Nav:Item href="#lien1">Lien 1</twig:UxDsfr:Nav:Item>
-            <twig:UxDsfr:Nav:Item href="#lien2">Lien 2</twig:UxDsfr:Nav:Item>
-            <twig:UxDsfr:Nav:Item href="#lien3">
-                Lien 3
-                {% block sub_menu %}
-                    {{ sub_menu }}
-                {% endblock %}
-            </twig:UxDsfr:Nav:Item>
-        {% endset %}
-        <twig:UxDsfr:Header
-                header_service_title="Mon service"
-                header_service_tag="Ma tagline"
-                show_menu_button="true"
-                show_search_button="true"
-        >
-            {% block header_navigation %}
-                {{ navigation }}
-            {% endblock %}
-        </twig:UxDsfr:Header>
-    </div>
-    <div class="fr-mt-4v">
-        <p><strong>Code snippet</strong></p>
-        <div class="code-snippet">
-            {% set code = "&lt;twig:UxDsfr:Header
-        header_service_title=\"Mon service\"
-        header_service_tag=\"Ma tagline\"
-        show_menu_button=\"true\"
-    &gt;
-        {% block header_navigation %}
-            {{ navigation }}
-        {% endblock %}
-&lt;/twig:UxDsfr:Header&gt;" %}
-            <twig:UxDsfr:Highlight>
-                <pre><code class="language-html">{{ code|raw }}</code></pre>
-            </twig:UxDsfr:Highlight>
-        </div>
-    </div>
-</div>
+        </twig:block>
+    </twig:UxDsfr:Header>
+    {{ snippet('‹twig:UxDsfr:Header service_title="Mon service" :show_search_button="true" navigation_id="navigation"
+    :skiplinks="[{label: \'Contenu\', href: \'#contenu\'}, {label: \'Menu\', href: \'#navigation\'}]">
+    ‹twig:block name="header_navigation">
+        ‹twig:UxDsfr:Nav:Item href="/lien1" :current="true">Lien 1‹/twig:UxDsfr:Nav:Item>
+        ‹twig:UxDsfr:Nav:Item>
+            Rubrique
+            ‹twig:block name="sub_menu">
+                ‹twig:UxDsfr:Nav:Item href="/lien2">Lien 2‹/twig:UxDsfr:Nav:Item>
+            ‹/twig:block>
+        ‹/twig:UxDsfr:Nav:Item>
+    ‹/twig:block>
+‹/twig:UxDsfr:Header>') }}
+
+    <h2 class="fr-h3 fr-mt-8v">Options</h2>
+    {{ snippet("service_title, service_tagline: nom et devise du service (header_service_title et header_service_tag restent acceptés)
+service_link: lien du service (/ par défaut)
+service_link_title: titre du lien (« Accueil - service - intitulé officiel » par défaut)
+logo_title: intitulé officiel, <br> pour les retours à la ligne (République<br>Française par défaut)
+service_logo, service_logo_alt: logo opérateur et son texte alternatif (le nom du service par défaut)
+show_search_button, search_modal_id: recherche et identifiant de sa modale
+show_menu_button, menu_id: bouton Menu (automatique avec une navigation ou des outils) et identifiant du menu mobile
+navigation_id: identifiant de la navigation, cible du lien d’évitement
+skiplinks: liens d’évitement [{label, href}] rendus avant l’en-tête
+availables_languages: sélecteur de langue {code: {label, href}}
+blocs: service_badges, header_tools, header_navigation, search_form
+
+Header:ToolsMenu: label, items [{label, href, current}], icon, hint, title, id (unique par défaut)
+Nav:Item: href, current (sinon comparé au chemin de la requête), id du sous-menu, bloc sub_menu
+Skiplinks: links [{label, href}]") }}
 {% endblock %}

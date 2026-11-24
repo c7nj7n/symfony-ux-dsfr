@@ -1,6 +1,5 @@
-<nav {{ attributes.defaults({ 'id':'navigation', 'role':'navigation', 'class':'fr-nav', 'data-fr-js-navigation':'true', 'data-fr-js-navigation-actionee':'true' }) }}>
+<nav {{ attributes.defaults({ 'id':'navigation', 'role':'navigation', 'class':'fr-nav', 'aria-label': 'header.navigation'|trans({}, 'dsfr') }) }}>
     <ul class="fr-nav__list">
-    {% block content %}
-    {% endblock %}
+        {% block content %}{% endblock %}
     </ul>
 </nav>
