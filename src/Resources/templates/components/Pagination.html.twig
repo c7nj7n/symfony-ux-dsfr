@@ -1,16 +1,27 @@
 {# src/Resources/templates/components/Pagination.html.twig #}
-{% set pages = this.pages() %}
-{% if pages|length > 1 %}
-    <nav class="fr-pagination" role="navigation" aria-label="Pagination">
+{% if this.last() > 1 %}
+    <nav {{ attributes.defaults({class: 'fr-pagination', 'aria-label': 'pagination.label'|trans({}, 'dsfr')}) }}>
         <ul class="fr-pagination__list">
-            {% for p in pages %}
-                <li class="fr-pagination__item">
-                    {% if p.current %}
-                        <span class="fr-pagination__link fr-pagination__link--current" aria-current="page">{{ p.number }}</span>
-                    {% else %}
-                        <a href="{{ p.href }}" class="fr-pagination__link">{{ p.number }}</a>
-                    {% endif %}
-                </li>
+            {% for part in ['start', 'pages', 'end'] %}
+                {% if part == 'pages' %}
+                    {% for page in this.pages() %}
+                        <li>
+                            {% if page.number is null %}
+                                <span class="fr-hidden fr-pagination__link fr-unhidden-lg">…</span>
+                            {% else %}
+                                <a {% if page.current %}aria-current="page"{% else %}href="{{ page.href }}"{% endif %} class="fr-pagination__link{{ page.near ? '' : ' fr-hidden fr-unhidden-lg' }}" title="{{ 'pagination.page'|trans({'%page%': page.number}, 'dsfr') }}">{{ page.number }}</a>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                {% else %}
+                    {# A disabled link has no href, aria-disabled and role="link", as in the DSFR example #}
+                    {% for name, edge in this.edges(part == 'start' ? ['first', 'prev'] : ['next', 'last']) %}
+                        {% set label = ('pagination.' ~ name)|trans({}, 'dsfr') %}
+                        <li>
+                            <a {% if edge.href %}href="{{ edge.href }}"{% else %}aria-disabled="true" role="link"{% endif %} class="fr-pagination__link {{ edge.class }}" title="{{ label }}">{{ label }}</a>
+                        </li>
+                    {% endfor %}
+                {% endif %}
             {% endfor %}
         </ul>
     </nav>

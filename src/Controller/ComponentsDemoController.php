@@ -98,10 +98,22 @@ class ComponentsDemoController extends AbstractController
         return $this->render('@UxDsfr/demo/components/Icon.html.twig');
     }
 
+    #[Route('/Modal', '_Modal')]
+    public function Modal()
+    {
+        return $this->render('@UxDsfr/demo/components/Modal.html.twig');
+    }
+
     #[Route('/Quote', '_Quote')]
     public function Quote()
     {
         return $this->render('@UxDsfr/demo/components/Quote.html.twig');
+    }
+
+    #[Route('/Pagination', '_Pagination')]
+    public function Pagination()
+    {
+        return $this->render('@UxDsfr/demo/components/Pagination.html.twig');
     }
 
     #[Route('/Stepper', '_Stepper')]
@@ -138,6 +150,12 @@ class ComponentsDemoController extends AbstractController
     public function LayoutBody()
     {
         return $this->render('@UxDsfr/demo/components/LayoutBody.html.twig');
+    }
+
+    #[Route('/LayoutSideMenu', '_LayoutSideMenu')]
+    public function LayoutSideMenu()
+    {
+        return $this->render('@UxDsfr/demo/components/LayoutSideMenu.html.twig');
     }
 
     #[Route('/Tag', '_Tag')]

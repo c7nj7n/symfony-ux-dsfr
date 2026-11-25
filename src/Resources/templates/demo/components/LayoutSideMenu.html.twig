@@ -1,0 +1,85 @@
+{% extends "@UxDsfr/demo/components.html.twig" %}
+
+{% block text_content %}
+    <h1 class="fr-h1">Layout SideMenu</h1>
+    <div class="fr-mt-4v">
+        <twig:UxDsfr:Callout color="blue-ecume">
+            <p class="fr-mb-0">Le composant <code>Layout:SideMenu</code> est le menu latéral du DSFR : la navigation dans une rubrique ou entre les sections d’une page. Il se compose avec <code>Layout:SideMenuList</code> et <code>Layout:SideMenuItem</code>.</p>
+        </twig:UxDsfr:Callout>
+    </div>
+
+    <div class="fr-mt-4v">
+        <h2 class="fr-h3">Rendu</h2>
+        <div class="fr-grid-row fr-grid-row--gutters">
+            <div class="fr-col-12 fr-col-md-6">
+                <h3 class="fr-h5">Liens et sous-menu</h3>
+                <twig:UxDsfr:Layout:SideMenu id="demo-sidemenu" title="Titre de rubrique">
+                    <twig:UxDsfr:Layout:SideMenuList>
+                        <twig:UxDsfr:Layout:SideMenuItem href="#">Accès direct</twig:UxDsfr:Layout:SideMenuItem>
+                        <twig:UxDsfr:Layout:SideMenuItem :active="true" title="Entrée de menu">
+                            <twig:UxDsfr:Layout:SideMenuItem href="#">Accès direct niveau 2</twig:UxDsfr:Layout:SideMenuItem>
+                            <twig:UxDsfr:Layout:SideMenuItem :current="true" href="#">Page courante</twig:UxDsfr:Layout:SideMenuItem>
+                        </twig:UxDsfr:Layout:SideMenuItem>
+                        <twig:UxDsfr:Layout:SideMenuItem href="#">Accès direct</twig:UxDsfr:Layout:SideMenuItem>
+                    </twig:UxDsfr:Layout:SideMenuList>
+                </twig:UxDsfr:Layout:SideMenu>
+            </div>
+            <div class="fr-col-12 fr-col-md-6">
+                <h3 class="fr-h5">À droite, sans titre, libellé du bouton changé</h3>
+                <twig:UxDsfr:Layout:SideMenu buttonLabel="Dans cette page" :right="true">
+                    <twig:UxDsfr:Layout:SideMenuList>
+                        <twig:UxDsfr:Layout:SideMenuItem href="#section-1">Section 1</twig:UxDsfr:Layout:SideMenuItem>
+                        <twig:UxDsfr:Layout:SideMenuItem href="#section-2">Section 2</twig:UxDsfr:Layout:SideMenuItem>
+                    </twig:UxDsfr:Layout:SideMenuList>
+                </twig:UxDsfr:Layout:SideMenu>
+            </div>
+        </div>
+    </div>
+
+    <div class="fr-mt-4v">
+        <h2 class="fr-h3">Exemples de code</h2>
+
+        <div class="code-snippet">
+            <h3 class="fr-h5">Liens et sous-menu</h3>
+            {% set code_links %}&lt;twig:UxDsfr:Layout:SideMenu title="Titre de rubrique"&gt;
+    &lt;twig:UxDsfr:Layout:SideMenuList&gt;
+        &lt;twig:UxDsfr:Layout:SideMenuItem href="/acces"&gt;Accès direct&lt;/twig:UxDsfr:Layout:SideMenuItem&gt;
+        &lt;twig:UxDsfr:Layout:SideMenuItem :active="true" title="Entrée de menu"&gt;
+            &lt;twig:UxDsfr:Layout:SideMenuItem href="/niveau-2"&gt;Accès direct niveau 2&lt;/twig:UxDsfr:Layout:SideMenuItem&gt;
+            &lt;twig:UxDsfr:Layout:SideMenuItem :current="true" href="/page"&gt;Page courante&lt;/twig:UxDsfr:Layout:SideMenuItem&gt;
+        &lt;/twig:UxDsfr:Layout:SideMenuItem&gt;
+    &lt;/twig:UxDsfr:Layout:SideMenuList&gt;
+&lt;/twig:UxDsfr:Layout:SideMenu&gt;{% endset %}
+            <pre><code class="language-html">{{ code_links }}</code></pre>
+
+            <h3 class="fr-h5">Options</h3>
+            <div class="fr-table">
+                <div class="fr-table__wrapper">
+                    <div class="fr-table__container">
+                        <div class="fr-table__content">
+                            <table>
+                                <caption>Options de Layout:SideMenu et Layout:SideMenuItem</caption>
+                                <thead>
+                                <tr><th scope="col">Composant</th><th scope="col">Option</th><th scope="col">Effet</th></tr>
+                                </thead>
+                                <tbody>
+                                <tr><td>SideMenu</td><td><code>title</code></td><td>Titre du menu, qui l’étiquette (<code>aria-labelledby</code>). Ancien nom : <code>menu_title</code>, toujours accepté.</td></tr>
+                                <tr><td>SideMenu</td><td><code>id</code></td><td>Préfixe des identifiants (titre, liste repliée), unique par défaut : à fixer pour des identifiants stables.</td></tr>
+                                <tr><td>SideMenu</td><td><code>buttonLabel</code></td><td>Libellé du bouton mobile, « Dans cette rubrique » par défaut.</td></tr>
+                                <tr><td>SideMenu</td><td><code>sticky</code></td><td><code>true</code> pour <code>fr-sidemenu--sticky</code>, <code>'full-height'</code> pour <code>fr-sidemenu--sticky-full-height</code>.</td></tr>
+                                <tr><td>SideMenu</td><td><code>right</code></td><td>Menu à droite (<code>fr-sidemenu--right</code>).</td></tr>
+                                <tr><td>SideMenuItem</td><td><code>href</code></td><td>Lien de l’entrée, son contenu en est le libellé.</td></tr>
+                                <tr><td>SideMenuItem</td><td><code>current</code></td><td>Lien de la page courante (<code>aria-current="page"</code>).</td></tr>
+                                <tr><td>SideMenuItem</td><td><code>title</code></td><td>Fait de l’entrée un sous-menu : ce bouton, puis son contenu en liste imbriquée.</td></tr>
+                                <tr><td>SideMenuItem</td><td><code>active</code></td><td>Entrée qui contient la page courante (<code>fr-sidemenu__item--active</code>) ; un sous-menu actif est ouvert par défaut.</td></tr>
+                                <tr><td>SideMenuItem</td><td><code>expanded</code>, <code>id</code></td><td>Sous-menu ouvert au chargement, identifiant de sa liste (unique par défaut).</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p>Les blocs <code>link</code> et <code>submenu</code> de <code>Layout:SideMenuItem</code> restent disponibles pour un contenu libre.</p>
+        </div>
+    </div>
+{% endblock %}

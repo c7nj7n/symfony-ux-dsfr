@@ -30,6 +30,10 @@ connect:
     name: ProConnect
     link: https://proconnect.gouv.fr/
     whatis: What is ProConnect?
+footer:
+  home_link_title: Back to the home page
+  license: Unless otherwise stated, all content on this site is available under
+  license_link: etalab-2.0 license
 alert:
   closable_label: Hide the message
 stepper:
@@ -37,3 +41,17 @@ stepper:
   next: 'Next step:'
 tag:
   dismiss: 'Remove %label%'
+sidemenu:
+  button: In this section
+pagination:
+  label: Pagination
+  first: First page
+  prev: Previous page
+  next: Next page
+  last: Last page
+  page: Page %page%
+header:
+  home: Home
+  navigation: Main menu
+skiplinks:
+  label: Quick access
