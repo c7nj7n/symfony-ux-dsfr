@@ -1,84 +1,51 @@
 {% extends "@UxDsfr/demo/components.html.twig" %}
 
+{# ‹ stands for < in the snippets: the component lexer would otherwise render <twig: tags #}
+{% macro snippet(code) %}
+    <div class="fr-mt-4v code-snippet">
+        <p><strong>Code snippet</strong></p>
+        <twig:UxDsfr:Highlight><pre><code class="language-html">{{ code|replace({'‹': '<'}) }}</code></pre></twig:UxDsfr:Highlight>
+    </div>
+{% endmacro %}
+
 {% block text_content %}
+    {% from _self import snippet %}
     <h1 class="fr-h1">Callout</h1>
     <div class="fr-mt-4v">
-        <twig:UxDsfr:Callout color="blue-ecume">
-            <p class="fr-mb-0">Le composant <code>Callout</code> met en avant une information importante ou un message d’accompagnement visuellement distinct.</p>
-        </twig:UxDsfr:Callout>
+        <twig:UxDsfr:Callout color="blue-ecume" text="Le composant Callout (mise en avant) fait ressortir une information importante du contenu : un titre, un texte, une icône, un bouton." />
     </div>
 
-    <h2 class="fr-h3">Rendu</h2>
-    <div class="fr-mt-4v">
-        <twig:UxDsfr:Callout>
-            Ceci est un callout par défaut.
-        </twig:UxDsfr:Callout>
-    </div>
-    <div class="fr-mt-4v">
-        <p><strong>Code snippet</strong></p>
-        <div class="code-snippet">
-            {% set code = "&lt;twig:UxDsfr:Callout&gt;
-    Ceci est un callout par défaut.
-&lt;/twig:UxDsfr:Callout&gt;" %}
-            <twig:UxDsfr:Highlight><pre><code class="language-html">{{ code|raw }}</code></pre></twig:UxDsfr:Highlight>
-        </div>
-    </div>
-    <h2 class="fr-h3">Couleurs disponibles</h2>
-    <div class="fr-mt-4v">
-        <div class="fr-mt-2v">
-            <twig:UxDsfr:Callout color="green-emeraude">
-                <strong>Vert Émeraude</strong> - Appelé à l'action positif ou informatif.
-            </twig:UxDsfr:Callout>
-        </div>
-        <div class="fr-mt-2v">
-            <twig:UxDsfr:Callout color="green-menthe">
-                <strong>Vert Menthe</strong> - Appelé à l'action positif ou informatif.
-            </twig:UxDsfr:Callout>
-        </div>
-        <div class="fr-mt-2v">
-            <twig:UxDsfr:Callout color="purple-glycine">
-                <strong>Violet Glycine</strong> - Callout avec une teinte pourpre.
-            </twig:UxDsfr:Callout>
-        </div>
-        <div class="fr-mt-2v">
-            <twig:UxDsfr:Callout color="pink-macaron">
-                <strong>Rose Macaron</strong> - Callout avec une teinte rose.
-            </twig:UxDsfr:Callout>
-        </div>
-        <div class="fr-mt-2v">
-            <twig:UxDsfr:Callout color="yellow-tournesol">
-                <strong>Jaune Tournesol</strong> - Avvertissement ou information importante.
-            </twig:UxDsfr:Callout>
-        </div>
-        <div class="fr-mt-2v">
-            <twig:UxDsfr:Callout color="orange-terre-battue">
-                <strong>Orange Terre Battue</strong> - Mise en garde ou attention requise.
-            </twig:UxDsfr:Callout>
-        </div>
-        <div class="fr-mt-2v">
-            <twig:UxDsfr:Callout color="brown-cafe-creme">
-                <strong>Marron Café Crème</strong> - Callout avec une teinte marron.
-            </twig:UxDsfr:Callout>
-        </div>
-        <div class="fr-mt-2v">
-            <twig:UxDsfr:Callout color="grey">
-                <strong>Gris</strong> - Callout neutre ou désactivé.
-            </twig:UxDsfr:Callout>
-        </div>
-    </div>
-    <div class="fr-mt-4v">
-        <p><strong>Code snippet</strong></p>
-        <div class="code-snippet">
-            {% set code2 = "&lt;twig:UxDsfr:Callout color=\"green-emeraude\" /&gt;
-&lt;twig:UxDsfr:Callout color=\"green-menthe\" /&gt;
-&lt;twig:UxDsfr:Callout color=\"blue-ecume\" /&gt;
-&lt;twig:UxDsfr:Callout color=\"purple-glycine\" /&gt;
-&lt;twig:UxDsfr:Callout color=\"pink-macaron\" /&gt;
-&lt;twig:UxDsfr:Callout color=\"yellow-tournesol\" /&gt;
-&lt;twig:UxDsfr:Callout color=\"orange-terre-battue\" /&gt;
-&lt;twig:UxDsfr:Callout color=\"brown-cafe-creme\" /&gt;
-&lt;twig:UxDsfr:Callout color=\"grey\" /&gt;" %}
-            <twig:UxDsfr:Highlight><pre><code class="language-html">{{ code2|raw }}</code></pre></twig:UxDsfr:Highlight>
-        </div>
-    </div>
+    <h2 class="fr-h3 fr-mt-8v">Texte seul</h2>
+    <twig:UxDsfr:Callout text="Les parcelles et la commune sont préremplies à partir du point choisi." />
+    {{ snippet('‹twig:UxDsfr:Callout text="Les parcelles et la commune sont préremplies à partir du point choisi." />') }}
+
+    <h2 class="fr-h3 fr-mt-8v">Titre, icône et bouton</h2>
+    <twig:UxDsfr:Callout icon="information-line" title="Titre de la mise en avant" text="Texte de la mise en avant, qui précise l’information.">
+        <twig:UxDsfr:Button>Libellé du bouton</twig:UxDsfr:Button>
+    </twig:UxDsfr:Callout>
+    {{ snippet('‹twig:UxDsfr:Callout icon="information-line" title="Titre de la mise en avant" text="Texte de la mise en avant, qui précise l’information.">
+    ‹twig:UxDsfr:Button>Libellé du bouton‹/twig:UxDsfr:Button>
+‹/twig:UxDsfr:Callout>') }}
+
+    <h2 class="fr-h3 fr-mt-8v">Contenu libre et attributs</h2>
+    <twig:UxDsfr:Callout class="fr-mb-0" id="aide-carte">
+        <p class="fr-callout__text">Un clic droit sur la carte ouvre un <strong>nouveau dossier</strong> à cet endroit.</p>
+    </twig:UxDsfr:Callout>
+    {{ snippet('‹twig:UxDsfr:Callout class="fr-mb-0" id="aide-carte">
+    <p class="fr-callout__text">Un clic droit sur la carte ouvre un <strong>nouveau dossier</strong> à cet endroit.</p>
+‹/twig:UxDsfr:Callout>') }}
+
+    <h2 class="fr-h3 fr-mt-8v">Couleurs</h2>
+    {% for color in constant('SymfonyUxDsfr\\Twig\\Components\\Callout::COLORS') %}
+        <twig:UxDsfr:Callout :color="color" :title="color" titleTag="p" class="fr-mt-2v" />
+    {% endfor %}
+    {{ snippet('‹twig:UxDsfr:Callout color="green-emeraude" text="…" />') }}
+
+    <h2 class="fr-h3 fr-mt-8v">Options</h2>
+    {{ snippet("color: couleur d’accentuation (" ~ constant('SymfonyUxDsfr\\Twig\\Components\\Callout::COLORS')|join(', ') ~ ")
+icon: icône DSFR sans le préfixe fr-icon- (ex. information-line)
+title: titre (fr-callout__title), titleTag: sa balise (h3 par défaut, h2 à h6 ou p)
+text: texte (fr-callout__text)
+bloc content: contenu libre après le titre et le texte, par exemple un bouton
+autres attributs (class, id, aria-*…) : transmis au conteneur") }}
 {% endblock %}

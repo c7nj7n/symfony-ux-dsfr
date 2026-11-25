@@ -1,4 +1,10 @@
-{% set default_class %}fr-callout{% if color %} fr-callout--{{ color }}{% endif %}{% endset %}
+{% set default_class = ['fr-callout', color and color != 'grey' ? 'fr-callout--' ~ color, icon ? 'fr-icon-' ~ icon]|filter(c => c)|join(' ') %}
 <div {{ attributes.defaults({ 'class': default_class }) }}>
+    {% if title %}
+        <{{ titleTag }} class="fr-callout__title">{{ title }}</{{ titleTag }}>
+    {% endif %}
+    {% if text %}
+        <p class="fr-callout__text">{{ text }}</p>
+    {% endif %}
     {% block content %}{% endblock %}
 </div>
