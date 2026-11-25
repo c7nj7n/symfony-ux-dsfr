@@ -2,24 +2,32 @@
 {% set content %}{% block content %}{% endblock %}{% endset %}
 {% if size != 'md' %}{% set classes = classes|merge(['fr-tag--' ~ size]) %}{% endif %}
 {% if variant != 'default' %}{% set classes = classes|merge(['fr-tag--' ~ variant]) %}{% endif %}
+{% if icon %}{% set classes = classes|merge(['fr-icon-' ~ icon, 'fr-tag--icon-left']) %}{% endif %}
 {% if pressable %}{% set classes = classes|merge(['fr-tag--clickable']) %}{% endif %}
 {% if dismissable %}{% set classes = classes|merge(['fr-tag--dismiss']) %}{% endif %}
+{% set classes = classes|join(' ') %}
 
 {% if href and not pressable %}
-    <a href="{{ href }}" class="{{ classes|join(' ') }}"{% if title %} title="{{ title }}"{% endif %}{% if target and target != '_self' %} target="{{ target }}"{% if target == '_blank' %} rel="noopener noreferrer"{% endif %}{% endif %}>
-        {{ content }}
-    </a>
+    {% if disabled %}
+        <a {{ attributes.defaults({class: classes, 'aria-disabled': 'true', role: 'link'}|merge(title ? {title: title} : {})) }}>
+            {{- content -}}
+        </a>
+    {% else %}
+        <a {{ attributes.defaults({class: classes, href: href}|merge(title ? {title: title} : {})|merge(target and target != '_self' ? {target: target} : {})|merge(target == '_blank' ? {rel: 'noopener noreferrer'} : {})) }}>
+            {{- content -}}
+        </a>
+    {% endif %}
 {% elseif dismissable %}
-    <button type="{{ type }}" class="{{ classes|join(' ') }}"{% if title %} aria-label="{{ title }}"{% endif %}>
-        {{ content }}
+    {# The DSFR asks for "Retirer <label>" as the button's name #}
+    <button {{ attributes.defaults({class: classes, type: type, 'aria-label': title ?? 'tag.dismiss'|trans({'%label%': content|striptags|trim}, 'dsfr')}|merge(disabled ? {disabled: true} : {})) }}>
+        {{- content -}}
     </button>
 {% elseif pressable %}
-    <button type="{{ type }}" class="{{ classes|join(' ') }}"{% if title %} title="{{ title }}"{% endif %}{% if pressed %} aria-pressed="true"{% else %} aria-pressed="false"{% endif %}>
-        {{ content }}
+    <button {{ attributes.defaults({class: classes, type: type, 'aria-pressed': pressed ? 'true' : 'false'}|merge(title ? {title: title} : {})|merge(disabled ? {disabled: true} : {})) }}>
+        {{- content -}}
     </button>
 {% else %}
-    <span class="{{ classes|join(' ') }}"{% if title %} title="{{ title }}"{% endif %}>
-        {{ content }}
-    </span>
+    <{{ tag }} {{ attributes.defaults({class: classes}|merge(title ? {title: title} : {})) }}>
+        {{- content -}}
+    </{{ tag }}>
 {% endif %}
-
