@@ -37,3 +37,15 @@ stepper:
   next: 'Étape suivante :'
 sidemenu:
   button: Dans cette rubrique
+pagination:
+  label: Pagination
+  first: Première page
+  prev: Page précédente
+  next: Page suivante
+  last: Dernière page
+  page: Page %page%
+header:
+  home: Accueil
+  navigation: Menu principal
+skiplinks:
+  label: Accès rapide
