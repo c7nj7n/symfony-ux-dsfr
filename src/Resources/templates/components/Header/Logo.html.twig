@@ -1,11 +1,15 @@
+{% set logo_name %}
+    {%- block content -%}
+        {%- for line in (title ?? 'République<br>Française')|split('<br>') -%}
+            {{ line }}{% if not loop.last %}<br>{% endif %}
+        {%- endfor -%}
+    {%- endblock -%}
+{% endset %}
 <div class="fr-header__logo">
-    {% set logo_name %}{% block content %}République<br>Française{% endblock %}{% endset %}
-    <twig:UxDsfr:GouvLogo>
-        {{ logo_name }}
-    </twig:UxDsfr:GouvLogo>
+    <twig:UxDsfr:GouvLogo>{{ logo_name }}</twig:UxDsfr:GouvLogo>
 </div>
 {% if service_logo %}
-<div class="fr-header__operator">
-    <img class="fr-responsive-img" style="width: 3.5rem" src="{{ service_logo }}" width="auto" height="80" />
-</div>
+    <div class="fr-header__operator">
+        <img alt="{{ service_logo_alt }}" class="fr-responsive-img" src="{{ service_logo }}" style="width: 3.5rem">
+    </div>
 {% endif %}

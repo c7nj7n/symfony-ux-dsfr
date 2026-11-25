@@ -35,3 +35,8 @@ alert:
 stepper:
   state: Étape %current% sur %count%
   next: 'Étape suivante :'
+header:
+  home: Accueil
+  navigation: Menu principal
+skiplinks:
+  label: Accès rapide
