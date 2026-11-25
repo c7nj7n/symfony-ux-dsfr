@@ -35,6 +35,13 @@ alert:
 stepper:
   state: Step %current% of %count%
   next: 'Next step:'
+pagination:
+  label: Pagination
+  first: First page
+  prev: Previous page
+  next: Next page
+  last: Last page
+  page: Page %page%
 header:
   home: Home
   navigation: Main menu
