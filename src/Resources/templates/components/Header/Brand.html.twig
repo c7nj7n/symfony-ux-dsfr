@@ -1,31 +1,31 @@
+{% set logo_text = logo_title ?? 'République<br>Française' %}
+{% set service_text %}{% block brand_service_title %}{{ service_title }}{% endblock %}{% endset %}
+{% set service_tag_text %}{% block brand_service_tag %}{{ service_tagline }}{% endblock %}{% endset %}
+{% set plain_service = service_title ?? service_text|striptags|trim %}
 <div {{ attributes.defaults({ 'class':'fr-header__brand fr-enlarge-link' }) }}>
-    {% set logo_title %}{% block logo_title %}{% endblock %}{% endset %}
     <div class="fr-header__brand-top">
-        {% if logo_title %}
-            <twig:UxDsfr:Header:Logo :service_logo="service_logo">{{ logo_title }}</twig:UxDsfr:Header:Logo>
-        {% else %}
-            <twig:UxDsfr:Header:Logo :service_logo="service_logo"></twig:UxDsfr:Header:Logo>
-        {% endif %}
-
+        <twig:UxDsfr:Header:Logo :service_logo="service_logo" :service_logo_alt="service_logo_alt ?? plain_service" :title="logo_text" />
         {% if show_search_button or show_menu_button %}
-        <div class="fr-header__navbar">
-            {% if show_search_button %}
-            <button data-fr-opened="false" aria-controls="{{ search_modal_id }}" title="{{ 'utils.search'|trans({}, 'dsfr') }}" type="button" id="search-modal-button" class="fr-btn--search fr-btn">
-                {{ 'utils.search'|trans({}, 'dsfr') }}
-            </button>
-            {% endif %}
-            {% if show_menu_button %}
-            <button data-fr-opened="false" aria-controls="{{ menu_id }}" title="{{ 'utils.menu'|trans({}, 'dsfr') }}" type="button" id="header-menu-btn" class="fr-btn--menu fr-btn">
-                {{ 'utils.menu'|trans({}, 'dsfr') }}
-            </button>
-            {% endif %}
-        </div>
+            <div class="fr-header__navbar">
+                {% if show_search_button %}
+                    <button aria-controls="{{ search_modal_id }}" class="fr-btn--search fr-btn" data-fr-opened="false" id="{{ search_modal_id }}-button" title="{{ 'utils.search'|trans({}, 'dsfr') }}" type="button">
+                        {{ 'utils.search'|trans({}, 'dsfr') }}
+                    </button>
+                {% endif %}
+                {% if show_menu_button %}
+                    <button aria-controls="{{ menu_id }}" class="fr-btn--menu fr-btn" data-fr-opened="false" id="{{ menu_id }}-button" title="{{ 'utils.menu'|trans({}, 'dsfr') }}" type="button">
+                        {{ 'utils.menu'|trans({}, 'dsfr') }}
+                    </button>
+                {% endif %}
+            </div>
         {% endif %}
     </div>
-    {% set service_title %}{% block brand_service_title %}brand_service_title{% endblock %}{% endset %}
-    {% set service_tag %}{% block brand_service_tag %}brand_service_tag{% endblock %}{% endset %}
-    <twig:UxDsfr:Header:Service link="{{ service_link }}">
-        {% block service_title %}{{ service_title }}{% endblock %}
-        {% block service_tag %}{{ service_tag }}{% endblock %}
+    <twig:UxDsfr:Header:Service
+        :link="service_link"
+        :link_title="service_link_title ?? ('header.home'|trans({}, 'dsfr') ~ ' - ' ~ plain_service ~ ' - ' ~ logo_text|replace({'<br>': ' '}))"
+        :badges="service_badges"
+    >
+        {% block service_title %}{{ service_text }}{% endblock %}
+        {% block service_tag %}{{ service_tag_text }}{% endblock %}
     </twig:UxDsfr:Header:Service>
 </div>

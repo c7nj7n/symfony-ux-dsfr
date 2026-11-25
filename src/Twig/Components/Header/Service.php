@@ -11,5 +11,13 @@ use Symfony\UX\TwigComponent\Attribute\ExposeInTemplate;
 class Service
 {
     #[ExposeInTemplate]
-    public ?string $link = null;
+    public ?string $link = null; // "/" by default
+    #[ExposeInTemplate]
+    public ?string $link_title = null; // "Accueil - <title>" by default
+    #[ExposeInTemplate]
+    public ?string $title = null;
+    #[ExposeInTemplate]
+    public ?string $tagline = null;
+    #[ExposeInTemplate]
+    public string|\Stringable|null $badges = null; // markup after the title, e.g. a fr-badge
 }

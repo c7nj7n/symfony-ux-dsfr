@@ -12,4 +12,8 @@ class Logo
 {
     #[ExposeInTemplate]
     public ?string $service_logo = null;
+    #[ExposeInTemplate]
+    public ?string $service_logo_alt = null;
+    #[ExposeInTemplate]
+    public ?string $title = null; // "République<br>Française" by default, <br> allowed
 }

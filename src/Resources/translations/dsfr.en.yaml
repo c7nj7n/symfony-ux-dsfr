@@ -42,3 +42,8 @@ pagination:
   next: Next page
   last: Last page
   page: Page %page%
+header:
+  home: Home
+  navigation: Main menu
+skiplinks:
+  label: Quick access

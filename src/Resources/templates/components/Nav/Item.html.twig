@@ -1,25 +1,23 @@
 {% set link_content %}{% block content %}{% endblock %}{% endset %}
 {% set sub_menu %}{% block sub_menu %}{% endblock %}{% endset %}
-<li {{ attributes.defaults({
-    class:"fr-nav__item",
-    'data-fr-js-navigation-item': "true" })
-}}>
-    {% if block('sub_menu') %}
+{% set is_current = current ?? (href is not null and app.request.pathInfo === href) %}
+<li {{ attributes.defaults({ class: 'fr-nav__item' }) }}>
+    {% if sub_menu|trim %}
         {% set subId = this.getSubMenuId() %}
-        <button type="button" class="fr-nav__btn" data-fr-js-collapse-button="true" aria-controls="{{ subId }}" aria-expanded="false">
+        <button aria-controls="{{ subId }}" aria-expanded="false" class="fr-nav__btn" type="button"{% if is_current %} aria-current="true"{% endif %}>
             {{ link_content }}
         </button>
-        <div class="fr-collapse fr-menu" id="{{ subId }}" data-fr-js-collapse="true" data-fr-js-navigation-section-actionee="true" >
+        <div class="fr-collapse fr-menu" id="{{ subId }}">
             <ul class="fr-menu__list">
-            {{ sub_menu }}
+                {{ sub_menu }}
             </ul>
         </div>
     {% elseif href %}
-        <a type="link"{% if app.request.pathInfo === href %} aria-current="page"{% endif %} href="{{ href }}" class="fr-nav__link" data-fr-js-navigation-link-actionee="true">
+        <a class="fr-nav__link" href="{{ href }}"{% if is_current %} aria-current="page"{% endif %}>
             {{ link_content }}
         </a>
     {% else %}
-        <span class="fr-nav__link" data-fr-js-navigation-link-actionee="true">
+        <span class="fr-nav__link">
             {{ link_content }}
         </span>
     {% endif %}

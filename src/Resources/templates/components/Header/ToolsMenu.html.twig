@@ -1,0 +1,20 @@
+<div {{ attributes.defaults({ class: 'fr-nav' }) }}>
+    <div class="fr-nav__item fr-nav__item--align-right">
+        <button aria-controls="{{ id }}" aria-expanded="false" class="fr-btn fr-btn--tertiary fr-translate__btn" type="button"{% if title %} title="{{ title }}"{% endif %}>
+            {%- if icon %}<span aria-hidden="true" class="fr-icon-{{ icon }} fr-icon--sm fr-mr-1v"></span>{% endif -%}
+            {{ label }}
+            {%- if hint %}<span class="fr-hidden-lg">&nbsp;- {{ hint }}</span>{% endif -%}
+        </button>
+        <div class="fr-collapse fr-menu fr-translate__menu" id="{{ id }}">
+            <ul class="fr-menu__list">
+                {% for item in items %}
+                    <li>
+                        <a class="fr-nav__link{{ item.lang is defined ? ' fr-translate__language' }}" href="{{ item.href }}"
+                            {%- if item.lang is defined %} hreflang="{{ item.lang }}" lang="{{ item.lang }}"{% endif -%}
+                            {%- if item.current ?? false %} aria-current="true"{% endif %}>{{ item.label }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
