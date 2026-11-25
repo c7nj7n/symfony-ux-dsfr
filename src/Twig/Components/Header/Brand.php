@@ -13,11 +13,19 @@ class Brand
     #[ExposeInTemplate]
     public ?string $service_link = null;
     #[ExposeInTemplate]
+    public ?string $service_link_title = null;
+    #[ExposeInTemplate]
     public ?string $service_logo = null;
+    #[ExposeInTemplate]
+    public ?string $service_logo_alt = null;
     #[ExposeInTemplate]
     public ?string $logo_title = null;
     #[ExposeInTemplate]
     public ?string $service_title = null;
+    #[ExposeInTemplate]
+    public ?string $service_tagline = null;
+    #[ExposeInTemplate]
+    public string|\Stringable|null $service_badges = null;
     #[ExposeInTemplate]
     public bool $show_search_button = false;
     #[ExposeInTemplate]

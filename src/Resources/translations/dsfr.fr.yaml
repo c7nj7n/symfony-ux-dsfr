@@ -4,6 +4,9 @@ utils:
   menu: Menu
   select_language: Sélectionner une langue
   new_window: Nouvelle fenêtre
+breadcrumb:
+  label: 'vous êtes ici :'
+  button: Voir le fil d’Ariane
 theme_switcher:
   title: Paramètres d’affichage
   button: Paramètres d'affichage
@@ -27,5 +30,26 @@ connect:
     name: ProConnect
     link: https://proconnect.gouv.fr/
     whatis: Qu’est-ce que ProConnect ?
+footer:
+  home_link_title: Retour à l’accueil du site
+  license: Sauf mention explicite de propriété intellectuelle détenue par des tiers, les contenus de ce site sont proposés sous
+  license_link: licence etalab-2.0
 alert:
   closable_label: Masquer le message
+stepper:
+  state: Étape %current% sur %count%
+  next: 'Étape suivante :'
+sidemenu:
+  button: Dans cette rubrique
+pagination:
+  label: Pagination
+  first: Première page
+  prev: Page précédente
+  next: Page suivante
+  last: Dernière page
+  page: Page %page%
+header:
+  home: Accueil
+  navigation: Menu principal
+skiplinks:
+  label: Accès rapide

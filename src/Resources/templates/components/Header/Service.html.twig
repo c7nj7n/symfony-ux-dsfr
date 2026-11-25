@@ -1,19 +1,12 @@
+{% set titleline %}{% block service_title %}{{ title }}{% endblock %}{% endset %}
+{% set tagline_text %}{% block service_tag %}{{ tagline }}{% endblock %}{% endset %}
+{% set plain_title = title ?? titleline|striptags|trim %}
 <div {{ attributes.defaults({ 'class':'fr-header__service' }) }}>
-    {% set titleline %}{% block service_title %}Système de Design de l’État Service{% endblock %}{% endset %}
-    {% set tagline %}{% block service_tag %}Système de Design de l’État{% endblock %}{% endset %}
-    {% if link is null or app.request.pathInfo === link %}
-        <div title="{{ titleline }}">
-            <p class="fr-header__service-title">
-                {{ titleline }}
-            </p>
-            {% if tagline %}<p class="fr-header__service-tagline">{{ tagline }}</p>{% endif %}
-        </div>
-    {% else %}
-    <a href="{{ link }}" title="{{ titleline }}">
+    <a href="{{ link ?? '/' }}" title="{{ link_title ?? ('header.home'|trans({}, 'dsfr') ~ ' - ' ~ plain_title) }}">
         <p class="fr-header__service-title">
             {{ titleline }}
+            {%- if badges %} {{ badges }}{% endif %}
         </p>
-        {% if tagline %}<p class="fr-header__service-tagline">{{ tagline }}</p>{% endif %}
     </a>
-    {% endif %}
+    {% if tagline_text|trim %}<p class="fr-header__service-tagline">{{ tagline_text }}</p>{% endif %}
 </div>

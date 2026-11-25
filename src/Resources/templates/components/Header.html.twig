@@ -1,87 +1,86 @@
-<header {{ attributes.defaults({ 'role':'banner', 'class':'fr-header', 'data-fr-js-header-actionee':'true' }) }}>
-    {% set header_navigation %}{% block header_navigation %}{% endblock %}{% endset %}
-    {% set header_tools %}{% block header_tools %}{% endblock %}{% endset %}
+{% set header_navigation %}{% block header_navigation %}{% endblock %}{% endset %}
+{% set header_tools %}{% block header_tools %}{% endblock %}{% endset %}
+{% set service_badges %}{% block service_badges %}{% endblock %}{% endset %}
+{% if skiplinks %}
+    <twig:UxDsfr:Skiplinks :links="skiplinks" />
+{% endif %}
+<header {{ attributes.defaults({ 'role':'banner', 'class':'fr-header' }) }}>
     <div class="fr-header__body">
         <div class="fr-container">
             <div class="fr-header__body-row">
                 <twig:UxDsfr:Header:Brand
-                    service_link="{{ service_link }}"
-                    service_logo="{{ service_logo }}"
-                    show_menu_button="{{ show_menu_button }}"
-                    show_search_button="{{ show_search_button }}"
-                    search_modal_id="{{ search_modal_id }}"
-                    menu_id="{{ menu_id }}"
+                    :service_link="service_link"
+                    :service_link_title="service_link_title"
+                    :service_logo="service_logo"
+                    :service_logo_alt="service_logo_alt"
+                    :logo_title="logo_title"
+                    :service_title="service_title"
+                    :service_tagline="service_tagline"
+                    :service_badges="service_badges|trim ? service_badges : null"
+                    :show_menu_button="show_menu_button or header_navigation|trim or header_tools|trim"
+                    :show_search_button="show_search_button"
+                    :search_modal_id="search_modal_id"
+                    :menu_id="menu_id"
                 >
-                    {% block brand_service_title %}{{ header_service_title }}{% endblock %}
-                    {% block brand_service_tag %}{{ header_service_tag }}{% endblock %}
+                    {% block brand_service_title %}{{ service_title }}{% endblock %}
+                    {% block brand_service_tag %}{{ service_tagline }}{% endblock %}
                 </twig:UxDsfr:Header:Brand>
-                {% if header_tools or show_search_button or availables_languages|length > 1 %}
-                <div class="fr-header__tools">
-                    {% if header_tools or availables_languages %}
-                        <div class="fr-header__tools-links">
-                            {{ header_tools }}
-                            {% if availables_languages and availables_languages|length > 1 %}
-                                <div id="header-translate" class="fr-translate fr-nav">
-                                    <div class="fr-nav__item fr-nav__item--align-right">
-                                        <button aria-controls="translate-collapse" aria-expanded="false" title="{{ 'utils.select_language'|trans({}, 'dsfr') }}" type="button" class="fr-translate__btn fr-btn fr-btn--tertiary">
-                                            {{ app.request.locale|upper }}
-                                            <span class="fr-hidden-lg">&nbsp;- {{ availables_languages[app.request.locale].label }}</span>
+                {% if header_tools|trim or show_search_button or availables_languages|length > 1 %}
+                    <div class="fr-header__tools">
+                        {% if header_tools|trim or availables_languages|length > 1 %}
+                            <div class="fr-header__tools-links">
+                                {{ header_tools }}
+                                {% if availables_languages|length > 1 %}
+                                    <twig:UxDsfr:Header:ToolsMenu
+                                        id="translate-collapse"
+                                        :label="app.request.locale|upper"
+                                        :hint="availables_languages[app.request.locale].label ?? null"
+                                        :title="'utils.select_language'|trans({}, 'dsfr')"
+                                        :items="availables_languages|map((language, key) => language|merge({lang: key, current: key == app.request.locale}))"
+                                        class="fr-translate"
+                                    />
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                        {% if show_search_button %}
+                            {% block search_form %}
+                                <div aria-labelledby="{{ search_modal_id }}-button" class="fr-header__search fr-modal" id="{{ search_modal_id }}">
+                                    <div class="fr-container fr-container-lg--fluid">
+                                        <button aria-controls="{{ search_modal_id }}" class="fr-btn--close fr-btn" title="{{ 'utils.close'|trans({}, 'dsfr') }}" type="button">
+                                            {{ 'utils.close'|trans({}, 'dsfr') }}
                                         </button>
-                                        <div class="fr-collapse fr-translate__menu fr-menu" id="translate-collapse">
-                                            <ul class="fr-menu__list">
-                                                {% for key, language in availables_languages %}
-                                                    <li>
-                                                        <a class="fr-translate__language fr-nav__link" hreflang="{{ key }}" lang="{{ key }}" href="{{ language.href }}"{% if key == app.request.locale %} aria-current="true"{% endif %}>{{ language.label }}</a>
-                                                    </li>
-                                                {% endfor %}
-                                            </ul>
-                                        </div>
+                                        <form{% if search.formAction %} action="{{ search.formAction }}"{% endif %} class="fr-search-bar" id="{{ search_modal_id }}-form" method="{{ search.formMethod }}" role="search">
+                                            <label class="fr-label" for="{{ search_modal_id }}-input">
+                                                {{ 'utils.search'|trans({}, 'dsfr') }}
+                                            </label>
+                                            <input aria-describedby="{{ search_modal_id }}-input-messages" class="fr-input" id="{{ search_modal_id }}-input" name="{{ search.inputName }}" placeholder="{{ 'utils.search'|trans({}, 'dsfr') }}" type="search">
+                                            <div aria-live="polite" class="fr-messages-group" id="{{ search_modal_id }}-input-messages"></div>
+                                            <button class="fr-btn" title="{{ 'utils.search'|trans({}, 'dsfr') }}" type="submit">
+                                                {{ 'utils.search'|trans({}, 'dsfr') }}
+                                            </button>
+                                        </form>
                                     </div>
                                 </div>
-                            {% endif %}
-                        </div>
-                    {% endif %}
-                    {% if show_search_button %}
-                        {% block search_form %}
-                        <div class="fr-header__search fr-modal" id="search-modal" aria-labelledby="search-button">
-                            <div class="fr-container fr-container-lg--fluid">
-                                <button aria-controls="search-modal" title="{{ 'utils.close'|trans({}, 'dsfr') }}" type="button" class="fr-btn--close fr-btn">
-                                    {{ 'utils.close'|trans({}, 'dsfr') }}
-                                </button>
-
-                                <form class="fr-search-bar" id="search" role="search" action="{{ search.formAction }}" method="{{ search.formMethod }}">
-                                    <label class="fr-label" for="search-input">
-                                        {{ 'utils.search'|trans({}, 'dsfr') }}
-                                    </label>
-
-                                    <input class="fr-input" aria-describedby="search-input-messages" name="{{ search.inputName }}" placeholder="{{ 'utils.search'|trans({}, 'dsfr') }}" id="search-input" type="search" />
-                                    <div class="dsfr-doc-search-results--dropdown" aria-live="polite"></div>
-                                    <div class="fr-messages-group" id="search-input-messages" aria-live="polite"></div>
-                                    <button title="{{ 'utils.search'|trans({}, 'dsfr') }}" type="button" id="search-button" class="fr-btn">
-                                        {{ 'utils.search'|trans({}, 'dsfr') }}
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                        {% endblock %}
-                    {% endif %}
-                </div>
+                            {% endblock %}
+                        {% endif %}
+                    </div>
                 {% endif %}
             </div>
         </div>
     </div>
-    {% if header_navigation %}
-    <div class="fr-header__menu fr-modal" id="{{ menu_id }}" aria-labelledby="header-menu-btn">
-        <div class="fr-container">
-            <button aria-controls="{{ menu_id }}" title="{{ 'utils.close'|trans({}, 'dsfr') }}" type="button" class="fr-btn--close fr-btn">
-                {{ 'utils.close'|trans({}, 'dsfr') }}
-            </button>
-            <div class="fr-header__menu-links">
+    {% if header_navigation|trim or header_tools|trim %}
+        <div aria-labelledby="{{ menu_id }}-button" class="fr-header__menu fr-modal" id="{{ menu_id }}">
+            <div class="fr-container">
+                <button aria-controls="{{ menu_id }}" class="fr-btn--close fr-btn" title="{{ 'utils.close'|trans({}, 'dsfr') }}" type="button">
+                    {{ 'utils.close'|trans({}, 'dsfr') }}
+                </button>
+                <div class="fr-header__menu-links"></div>
+                {% if header_navigation|trim %}
+                    <twig:UxDsfr:Header:Nav id="{{ navigation_id }}">
+                        {{ header_navigation }}
+                    </twig:UxDsfr:Header:Nav>
+                {% endif %}
             </div>
-            <twig:UxDsfr:Header:Nav>
-                {{ header_navigation }}
-            </twig:UxDsfr:Header:Nav>
         </div>
-    </div>
     {% endif %}
 </header>

@@ -1,57 +1,19 @@
+{% set variants = [
+    sticky is same as(true) ? 'fr-sidemenu--sticky',
+    sticky is same as('full-height') ? 'fr-sidemenu--sticky-full-height',
+    right ? 'fr-sidemenu--right',
+]|filter(c => c) %}
 <nav {{ attributes.defaults({
-    'class': 'fr-sidemenu',
+    'class': (['fr-sidemenu']|merge(variants))|join(' '),
     'role': 'navigation',
-    'aria-labelledb': 'sidemenu-title'
-}) }}>
-    {% set menuId = this.getMenuId() %}
+}|merge(title ? {'aria-labelledby': id ~ '-title'} : {})) }}>
     <div class="fr-sidemenu__inner">
-        <button aria-expanded="false" aria-controls="{{ menuId }}" type="button" class="fr-sidemenu__btn">Dans cette rubrique</button>
-        <div class="fr-collapse" id="{{ menuId }}">
-            {% if menu_title is defined %}
-            <p class="fr-sidemenu__title" id="sidemenu-title">{{ menu_title }}</p>
+        <button aria-controls="{{ id }}-wrapper" aria-expanded="false" class="fr-sidemenu__btn" type="button">{{ buttonLabel ?? 'sidemenu.button'|trans({}, 'dsfr') }}</button>
+        <div class="fr-collapse" id="{{ id }}-wrapper">
+            {% if title %}
+                <div class="fr-sidemenu__title" id="{{ id }}-title">{{ title }}</div>
             {% endif %}
-            {% block content %}
-            <twig:UxDsfr:Layout:SideMenuList>
-                <twig:UxDsfr:Layout:SideMenuItem>
-                    {% block link %}
-                        <a href="#" class="fr-sidemenu__link">azertyuiop</a>
-                    {% endblock %}
-                </twig:UxDsfr:Layout:SideMenuItem>
-                <twig:UxDsfr:Layout:SideMenuList>
-                    <twig:UxDsfr:Layout:SideMenuItem>
-                        {% block link %}
-                            <a href="#" class="fr-sidemenu__link">tatatata</a>
-                        {% endblock %}
-                    </twig:UxDsfr:Layout:SideMenuItem>
-                </twig:UxDsfr:Layout:SideMenuList>
-                <li class="fr-sidemenu__item">
-                    <button aria-expanded="true" aria-controls="sidemenu-submenu-level-02" aria-current="true" type="button" class="fr-sidemenu__btn">Entrée menu active</button>
-                    <div class="fr-collapse" id="sidemenu-submenu-level-02">
-                        <ul class="fr-sidemenu__list">
-                            <li class="fr-sidemenu__item">
-                                <a href="#" class="fr-sidemenu__link">Accès direct niveau 2</a>
-                            </li>
-                            <li class="fr-sidemenu__item">
-                                <button aria-expanded="true" aria-controls="sidemenu-submenu-level-03" aria-current="true" type="button" class="fr-sidemenu__btn">Entrée menu active</button>
-                                <div class="fr-collapse" id="sidemenu-submenu-level-03">
-                                    <ul class="fr-sidemenu__list">
-                                        <li class="fr-sidemenu__item">
-                                            <a href="#" class="fr-sidemenu__link">Accès direct niveau 3</a>
-                                        </li>
-                                        <li class="fr-sidemenu__item">
-                                            <a aria-current="page" href="#" class="fr-sidemenu__link">Accès direct niveau 3</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="fr-sidemenu__item">
-                    <a href="#" class="fr-sidemenu__link">Accès direct</a>
-                </li>
-            </twig:UxDsfr:Layout:SideMenuList>
-            {% endblock %}
+            {% block content %}{% endblock %}
         </div>
     </div>
 </nav>

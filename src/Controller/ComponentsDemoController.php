@@ -20,6 +20,12 @@ class ComponentsDemoController extends AbstractController
         return $this->render('@UxDsfr/demo/components/Accordion.html.twig');
     }
 
+    #[Route('/Notice', '_Notice')]
+    public function Notice()
+    {
+        return $this->render('@UxDsfr/demo/components/Notice.html.twig');
+    }
+
     #[Route('/Badge', '_Badge')]
     public function Badge()
     {
@@ -104,6 +110,18 @@ class ComponentsDemoController extends AbstractController
         return $this->render('@UxDsfr/demo/components/Quote.html.twig');
     }
 
+    #[Route('/Pagination', '_Pagination')]
+    public function Pagination()
+    {
+        return $this->render('@UxDsfr/demo/components/Pagination.html.twig');
+    }
+
+    #[Route('/Stepper', '_Stepper')]
+    public function Stepper()
+    {
+        return $this->render('@UxDsfr/demo/components/Stepper.html.twig');
+    }
+
     #[Route('/Summary', '_Summary')]
     public function Summary()
     {
@@ -132,6 +150,12 @@ class ComponentsDemoController extends AbstractController
     public function LayoutBody()
     {
         return $this->render('@UxDsfr/demo/components/LayoutBody.html.twig');
+    }
+
+    #[Route('/LayoutSideMenu', '_LayoutSideMenu')]
+    public function LayoutSideMenu()
+    {
+        return $this->render('@UxDsfr/demo/components/LayoutSideMenu.html.twig');
     }
 
     #[Route('/Tag', '_Tag')]

@@ -13,16 +13,19 @@ use Symfony\UX\TwigComponent\Attribute\PreMount;
 class Breadcrumb
 {
     #[ExposeInTemplate]
-    public array $items = []; // each item: ['label' => '...', 'href' => null]
+    public array $items = []; // each item: ['label' => '...', 'href' => null], the item without href is the current page
+
+    #[ExposeInTemplate]
+    public string $id = 'breadcrumb'; // id of the collapsed list, controlled by the mobile button
 
     #[PreMount]
     public function preMount(array $data): array
     {
         $resolver = new OptionsResolver();
         $resolver->setIgnoreUndefined(true);
-        $resolver->setDefaults(['items' => [], 'aria-label' => 'Vous êtes ici :']);
+        $resolver->setDefaults(['items' => [], 'id' => 'breadcrumb']);
         $resolver->setAllowedTypes('items', 'array');
-        $resolver->setAllowedTypes('aria-label', 'string');
+        $resolver->setAllowedTypes('id', 'string');
 
         return $resolver->resolve($data) + $data;
     }

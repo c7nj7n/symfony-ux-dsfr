@@ -1,0 +1,31 @@
+{% extends "@UxDsfr/demo/components.html.twig" %}
+
+{% block text_content %}
+    <h1 class="fr-h1">Pagination</h1>
+    <div class="fr-mt-4v">
+        <twig:UxDsfr:Callout color="blue-ecume">
+            <p class="fr-mb-0">Le composant <code>Pagination</code> suit l’exemple du DSFR : première page, page précédente, la première et la dernière page, la page courante et ses voisines, page suivante, dernière page. Sous le point de rupture lg, seules la page courante et ses voisines restent affichées. Il ne s’affiche pas pour une seule page.</p>
+        </twig:UxDsfr:Callout>
+    </div>
+
+    <div class="fr-mt-4v">
+        <h2 class="fr-h3">Rendu</h2>
+        <twig:UxDsfr:Pagination :current="1" :total="6" />
+        <twig:UxDsfr:Pagination :current="10" :total="20" />
+        <twig:UxDsfr:Pagination :current="20" :total="20" :neighbours="2" />
+    </div>
+
+    <div class="fr-mt-4v">
+        <h2 class="fr-h3">Exemples de code</h2>
+        <div class="code-snippet">
+            {% set code_basic %}&lt;twig:UxDsfr:Pagination :current="10" :total="20" path="/articles?page=%d" /&gt;{% endset %}
+            <pre><code class="language-html">{{ code_basic }}</code></pre>
+            {% set code_route %}&lt;twig:UxDsfr:Pagination :current="page" :total="pageCount" :path="path('article_index', {page: '__page__'})|replace({'__page__': '%d'})" /&gt;{% endset %}
+            <pre><code class="language-html">{{ code_route }}</code></pre>
+
+            <h3 class="fr-h5">Options</h3>
+            {% set code_options = "current: page courante (1 par défaut)\ntotal: nombre de pages\npath: lien d’une page, %d remplacé par son numéro (#page=%d par défaut)\nneighbours: nombre de pages affichées de chaque côté de la page courante (1 par défaut)" %}
+            <pre><code class="language-text">{{ code_options }}</code></pre>
+        </div>
+    </div>
+{% endblock %}
